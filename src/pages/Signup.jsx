@@ -1,43 +1,45 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios'; 
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle } from 'react-icons/fc';
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // Importing eye icons
+import bg from '../assests/loginbg.jpg'
+
 const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-   
-
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-        console.log("Submitting");
-        const signData = { name, email, password }; // Create an object with the form data
-        console.log(signData);
+        e.preventDefault();
+        const signData = { name, email, password };
         try {
-          const response = await axios.post(
-            "http://localhost:4000/api/v1/signup",
-            signData
-          );
-          console.log(response);
+            const response = await axios.post(
+                "http://localhost:4000/api/v1/signup",
+                signData
+            );
             if (response.status === 200) {
                 toast.success("Signup successful");
             }
         } catch (err) {
-          console.error(err);
+            console.error(err);
         }
     };
 
     return (
-        <div className="bg-white">
+        <div className='h-[48.325rem]'  style={{
+            background: `url(${bg})no-repeat center center/ cover`,
+           
+          }}>
             <div className="flex min-h-[80vh] flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="text-center sm:mx-auto sm:w-full sm:max-w-md">
                     <h1 className="text-3xl font-extrabold text-gray-900">Sign up</h1>
                 </div>
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white px-4 pb-4 pt-8 sm:rounded-lg sm:px-10 sm:pb-6 sm:shadow">
+                <div className="bg-white px-4 pb-4 pt-8 sm:rounded-lg bg-opacity-40 backdrop-filter backdrop-blur-lg shadow-md sm:px-10 sm:pb-6 sm:shadow">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
@@ -53,7 +55,7 @@ const Signup = () => {
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Email address</label>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
                                 <div className="mt-1">
                                     <input
                                         id="email"
@@ -67,16 +69,22 @@ const Signup = () => {
                             </div>
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                                <div className="mt-1">
+                                <div className="mt-1 relative">
                                     <input
                                         id="password"
                                         name="password"
-                                        type="password"
+                                        type={showPassword ? "text" : "password"} // Show password if showPassword is true
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm"
+                                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pr-10 placeholder-gray-400 shadow-sm sm:text-sm"
                                     />
+                                    <span
+                                        onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                                        className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                                    >
+                                        {showPassword ? <FiEye className="h-5 w-5 text-gray-400" />:<FiEyeOff className="h-5 w-5 text-gray-400" />}
+                                    </span>
                                 </div>
                             </div>
                             <div className="flex items-center justify-between">
@@ -100,21 +108,17 @@ const Signup = () => {
                                     <div className="w-full border-t border-gray-300"></div>
                                 </div>
                                 <div className="relative flex justify-center text-sm">
-                                    <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                                    <span className="px-2 text-gray-500">Or continue with</span>
                                 </div>
                             </div>
                             <div className="mt-6">
                                 <button className="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
-                                    
-                                    <FcGoogle  width={100} height={100}/>
+                                    <FcGoogle width={20} height={20} />
                                 </button>
-                               
                             </div>
                         </div>
                         <div className="m-auto mt-6 w-fit md:mt-8">
-                            <span className="m-auto text-gray-500">Don't have an account?
-                                <Link to="/login" className="font-bold text-black underline">Login</Link>
-                            </span>
+                            <span className="m-auto text-gray-500">Already have an account? <Link to="/" className="font-bold text-black underline">Login</Link></span>
                         </div>
                     </div>
                 </div>

@@ -1,56 +1,43 @@
 import React, { useState, useRef } from "react";
 import html2canvas from "@nidi/html2canvas";
 import jsPDF from "jspdf";
-// 1204 x 1754
+import axios from 'axios';
+
 const Academic = () => {
   const [isEditable, setIsEditable] = useState(false);
-  const [refValue, setRefValue] = useState("Ref. No.: SVGOI/Admin/2024/38");
-  const [dateValue, setDateValue] = useState("Dated:29.02.2024");
-  const [descValue, setDescValue] = useState(
-    "This is for the information of all the students studying in Swami Vivekanand Group of Institutes (Except students admitted in 2023 batch) that the last date for deposit of their fee for odd semester (5th & 7th semester) is 10.04.2024. They are, therefore, directed to deposit their odd semester fee on or before 10.04.2024 positively. After due date, penalty will be applicable."
-  );
+  const [noticeData, setNoticeData] = useState({
+    ref: "SVGOI/Admin/2024/38",
+    date: "Dated:29.02.2024",
+    description: "This is for the information of all the students studying in Swami Vivekanand Group of Institutes (Except students admitted in 2023 batch) that the last date for deposit of their fee for odd semester (5th & 7th semester) is 10.04.2024. They are, therefore, directed to deposit their odd semester fee on or before 10.04.2024 positively. After due date, penalty will be applicable.",
+    batch: "academic",
+  });
 
   const noticeRef = useRef(null);
 
+  const handleChange = (e) => {
+    setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
+  };
+
   const handleEditToggle = async () => {
     setIsEditable(!isEditable);
-    if(isEditable) {
-      console.log("Ref: ", refValue);
-      console.log("Date: ", dateValue);
-      console.log("Desc: ", descValue);
-      // send the notice data in backend using axios 
-      try{
-
-      }
-      catch(err){
-        console.log("Error while sending notice data in backend ", err.message)
+    if (isEditable) {
+      try {
+        await axios.post('http://127.0.0.1:4000/api/v1/createNotice', noticeData);
+        console.log("Notice data sent successfully");
+      } catch (error) {
+        console.log("Error while sending notice data to the backend: ", error.message);
       }
     }
-  };
-
-  const handleRefChange = (e) => {
-    setRefValue(e.target.value);
-  };
-
-  const handleDateChange = (e) => {
-    setDateValue(e.target.value);
-  };
-
-  const handleDescChange = (e) => {
-    setDescValue(e.target.value);
   };
 
   const handleDownloadPDF = () => {
     const input = noticeRef.current;
 
     html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg",1.0);
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
       const pdf = new jsPDF("p", "mm", "a4");
-      // const pdfWidth = pdf.internal.pageSize.getWidth();
-      // const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = 190; //
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      // const yPos = (pdfHeight - imgHeight) / 2;
+      const imgWidth = 190;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;;
 
       pdf.addImage(imgData, "JPEG", 10, 30, imgWidth, imgHeight);
 
@@ -59,7 +46,8 @@ const Academic = () => {
   };
 
   return (
-    <div className="w-[576px] h-[900px]">
+
+    <div>
       <div className="flex justify-end mb-4 mt-8">
         <button
           onClick={handleEditToggle}
@@ -74,7 +62,7 @@ const Academic = () => {
           Download PDF
         </button>
       </div>
-      <div>
+      <div className="bg-white drop-shadow-lg w-[710px] h-[800px] p-[5rem]">
         <div ref={noticeRef}>
           <div>
             <h2 className="font-bold text-3xl">
@@ -86,28 +74,34 @@ const Academic = () => {
             <div className="w-full h-[1.5px] bg-slate-400" />
             <div className="flex justify-between">
               <div>
-                <input
-                  name="Ref"
-                  type="text"
-                  className={`outline-none border-none text-base tracking-eide text-txtDark w-[250px] ${
-                    isEditable ? "bg-gray-200" : "bg-white"
-                  }`}
-                  value={refValue}
-                  onChange={handleRefChange}
-                  readOnly={!isEditable}
-                />
+                <p className="text-[15px]">
+                  Ref. No:{" "}
+                  <input
+                    className={`pb-2 pt-1 pe-2 inline-block outline-none border-none align-middle ${
+                      isEditable ? "bg-gray-200" : "bg-white"
+                    }`}
+                    type="text"
+                    value={noticeData.ref}
+                    onChange={handleChange}
+                    name="ref"
+                    readOnly={!isEditable}
+                  />
+                </p>
               </div>
               <div>
-                <input
-                  name="Date"
-                  type="text"
-                  className={`outline-none border-none text-base tracking-eide text-txtDark w-full ${
-                    isEditable ? "bg-gray-200" : "bg-white"
-                  }`}
-                  value={dateValue}
-                  onChange={handleDateChange}
-                  readOnly={!isEditable}
-                />
+              <p className="text-[15px]">
+          Date:{" "}
+          <input
+            name="date"
+            className={`h-[max-content] leading-relaxed  outline-none border-none border-0 pb-2 pe-2 inline-block  ${
+              isEditable ? "bg-gray-200" : "bg-white"
+            } `}
+            value={noticeData.date}
+            onChange={handleChange}
+            type="date"
+            readOnly={!isEditable}
+          />
+        </p>
               </div>
             </div>
           </div>
@@ -119,16 +113,15 @@ const Academic = () => {
               className={`text-xs mt-4 text-txtPrimary resize-none h-[100px] tracking-wider w-full outline-none break-normal border-none ${
                 isEditable ? "bg-gray-200" : "bg-white"
               }`}
-              name="Content"
+              name="description"
               rows="3"
-              value={descValue}
-              onChange={handleDescChange}
+              value={noticeData.description}
+              onChange={handleChange}
               readOnly={!isEditable}
               style={{ wordBreak: "break-word" }}
               wrap="hard"
             ></textarea>
           </div>
-          
           <div>
             <p className="text-sm font-bold mt-[100px]">Principal</p>
             <p className="text-sm font-bold ">SVIET</p>

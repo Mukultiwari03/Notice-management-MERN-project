@@ -20,10 +20,12 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        enum: ['teacher', 'co-ordinator', 'student'],
-        
+        enum: ['student','admin'],  
+    },
+    batch:{
+        type: String,
+        enum: ['The Uniques', 'academics', 'Super60'],
     }
-
     
 });
 

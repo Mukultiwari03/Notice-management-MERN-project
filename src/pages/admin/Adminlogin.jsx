@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FcGoogle } from "react-icons/fc";
 import { UserContext } from '../../App';
+import bg from '../../assests/loginbg.jpg'
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -32,13 +33,16 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-white">
+        <div className='h-[48.325rem]'  style={{
+            background: `url(${bg})no-repeat center center/ cover`,
+           
+          }}>
             <div className="flex min-h-[80vh] flex-col justify-center py-12 sm:px-6 lg:px-8">
                 <div className="text-center sm:mx-auto sm:w-full sm:max-w-md">
                     <h1 className="text-3xl font-extrabold text-gray-900">Hey Admin!</h1>
                 </div>
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                    <div className="bg-white px-4 pb-4 pt-8 sm:rounded-lg sm:px-10 sm:pb-6 sm:shadow">
+                <div className="bg-white px-4 pb-4 pt-8 sm:rounded-lg bg-opacity-40 backdrop-filter backdrop-blur-lg shadow-md sm:px-10 sm:pb-6 sm:shadow">
                         <form className="space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
@@ -88,7 +92,7 @@ const Login = () => {
                                     <div className="w-full border-t border-gray-300"></div>
                                 </div>
                                 <div className="relative flex justify-center text-sm">
-                                    <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                                    <span className=" px-2 text-gray-500">Or continue with</span>
                                 </div>
                             </div>
                             <div className="mt-6">

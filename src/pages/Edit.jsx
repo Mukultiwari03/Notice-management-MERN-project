@@ -2,8 +2,9 @@ import React from "react";
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 // import { Outlet } from "react-router-dom";
-import Main from '../components/Main';
-import Academic from '../components/notices/Academic'
+// import Main from '../components/Main';
+// import Academic from '../components/notices/Academic'
+import UniquesTemp from '../components/notices/UniquesTemp';
 const Edit = () => {
   return (
     <div>
@@ -16,7 +17,8 @@ const Edit = () => {
         </div>
         {/* p-[100px] */}
         <div className=" col-span-12 lg:col-span-10  z-[-1]  mx-auto">
-          <Academic/>
+          {/* <Academic/> */}
+          <UniquesTemp/>
         </div>
       </div>
     </div>
