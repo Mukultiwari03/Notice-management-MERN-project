@@ -4,20 +4,20 @@ const Custcomp = ({data}) => {
 
 
   return (
-    <div>
-        <div className="mt-4 flex mx-5 bg-white items-center justify-between px-4 py-2 border-[1px] rounded-sm">
+    <div className='bg-[#e8e8e8] h-full'>
+        <div className=" mt-4 flex mx-5 bg-white items-center justify-between px-4 py-2 border-[1px] rounded-sm">
         <div className="flex space-x-4 items-center">
           <input type="checkbox" className="w-4 h-4" />
           <span>
             <p className="text-sm  text-slate-500 ">
-              Name / Semester / Contact
+              Name / Unique ID
             </p>
           </span>
         </div>
         <div>
           <span>
             <p className="text-sm  text-slate-500 mr-[2.75rem]">
-              Purpose / Place
+              Email
             </p>
           </span>
         </div>
@@ -35,14 +35,14 @@ const Custcomp = ({data}) => {
           {/* customer name/email/... */}
           <div className='flex space-x-4 '>
             <input type="checkbox" className='w-4 h-4 mt-2' />
-            <div className='flex flex-col space-y-1'>
+            <div className='flex flex-col space-y-1 '>
               <p className='font-semibold'>{item.name}</p>
               <span><p className='text-sm text-slate-500'>ID:_{item._id}</p></span>
               {/* <span><p className='text-sm text-slate-500'>{item.personalContact}</p></span>/ */}
             </div>
           </div>
           {/* status/gender/... */}
-          <div className='flex flex-col space-y-1'>
+          <div className='flex flex-col space-y-1 w-[13rem]'>
             <span><p className='text-sm text-slate-500'>{item.email}</p></span>
             {/* <span><p className='text-sm  text-slate-500'>{item.place}</p></span> */}
           </div>
