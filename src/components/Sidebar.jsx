@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CgNotes } from "react-icons/cg";
 import { TbHistoryToggle } from "react-icons/tb";
 import { BiLogOutCircle } from "react-icons/bi";
-
+import { RiUserSearchLine } from "react-icons/ri";
 const Sidebar = () => {
 
 
@@ -25,7 +25,12 @@ const Sidebar = () => {
       title: <Link to="/admin/history">History</Link>,
     },
     {
-      id: "3",
+      id:"3",
+      icon: <RiUserSearchLine  size={20} />,
+      title:<Link to="/admin/users">Users</Link>
+    },
+    {
+      id: "4",
       icon: <BiLogOutCircle size={20} />,
       title: (
         <button onClick={handleLogout} className="flex items-center">
@@ -33,6 +38,7 @@ const Sidebar = () => {
         </button>
       ),
     },
+
     // {
     //   id: "4",
     //   icon: <PiWrenchLight size={20} />,

@@ -10,6 +10,8 @@ import Cards from "./components/Cards";
 import Acadwrapper from "./components/notices/Acadwrapper";
 import UniquesTemp from "./components/notices/UniquesTemp";
 import History from "./pages/admin/History";
+import Student from "./pages/student/Student";
+import Users from "./components/Users"
 function App() {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
@@ -26,19 +28,20 @@ function App() {
   const Layout = () => {
     return (
       <div>
-        <Navbar />
-        <div className="grid grid-cols-12 sticky ">
-          <div className=" col-span-2 hidden lg:block">
-            <aside className="sticky top-[70px] x-[3]">
-              <Sidebar />
-            </aside>
-          </div>
-
-          <div className=" col-span-12 lg:col-span-10  z-[-1]">
-            <Outlet />
-          </div>
+      <Navbar />
+      <div className="grid grid-cols-12">
+        <div className="col-span-2 hidden lg:block">
+          <aside className="sticky top-[70px]">
+            <Sidebar />
+          </aside>
+        </div>
+    
+        <div className="col-span-12 lg:col-span-10">
+          <Outlet />
         </div>
       </div>
+    </div>
+    
     );
   };
 
@@ -51,6 +54,11 @@ function App() {
       path: "/Adminlogin",
       element: <Adminlogin />,
     },
+    {
+      path:"/student",
+      element:<Student/>
+    },
+
     {
       path: "/admin",
       element: <Layout />,
@@ -70,6 +78,10 @@ function App() {
         {
           path:"/admin/Uniques",
           element:<UniquesTemp/>
+        },
+        {
+          path:"/admin/users",
+          element:<Users/>
         }
       ],
     },

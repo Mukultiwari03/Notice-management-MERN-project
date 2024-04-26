@@ -3,7 +3,7 @@ import axios from 'axios';
 import Acasample from '../../components/notices/acaSample';
 import Unqsample from '../../components/notices/unqSample';
 
-const History = () => {
+const History = ({all}) => {
     const [notices, setNotices] = useState([]);
 
     useEffect(() => {
@@ -19,9 +19,11 @@ const History = () => {
     }, []);
 
     return (
-      <div className='bg-[#e8e8e8]' >
+      <div className='bg-[#e8e8e8] ' >
         <div>
-            <h2 className='text-3xl font-bold text-gray-900 text-center py-8'>Past Notices</h2>
+        <h2 className='text-3xl font-bold text-gray-900 text-center py-8'>
+  {all === "All Notices" ? "All Notices" : all === "Latest Notices" ? "Latest Notices" : "Past Notices"}
+</h2>
         </div>
        <div className='grid grid-cols-12 gap-3 w-[fit-content] md:w-full'>
             {notices.map(notice => {

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import bg from '../assests/loginbg.jpg'
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // Importing eye icons
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -20,8 +21,9 @@ const Login = () => {
                     { email, password }
                 );
                 if (response.status === 200) {
-                    handleLogin(response.data); // Pass the user data to handleLogin
+                    handleLogin(response.data); 
                     toast.success("Login successful");
+                    window.location = "/student"; 
                 }
             } catch (err) {
                 console.error(err);
