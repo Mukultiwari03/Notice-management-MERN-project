@@ -25,9 +25,9 @@ const Cards = () => {
     {
       id:"3",
       title:"Academics",
-      img:academics,
-      desc:"This is the description of the academics",
-      edit:'/admin/academic'
+      img:uniques,
+      desc:"This is the description of the Uniques",
+      edit:'/admin/uniques'
     },
     {
       id:"4",

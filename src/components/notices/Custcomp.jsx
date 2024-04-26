@@ -1,64 +1,104 @@
 import React from 'react';
-const Custcomp = ({data}) => {
-//   const [data, setData] = useState([]);
+import axios from 'axios';
+import { toast } from 'react-toastify';
+const Custcomp = ({ data}) => {
 
-
-  return (
-    <div className='bg-[#e8e8e8] h-full'>
-        <div className=" mt-4 flex mx-5 bg-white items-center justify-between px-4 py-2 border-[1px] rounded-sm">
-        <div className="flex space-x-4 items-center">
-          <input type="checkbox" className="w-4 h-4" />
-          <span>
-            <p className="text-sm  text-slate-500 ">
-              Name / Unique ID
-            </p>
-          </span>
-        </div>
-        <div>
-          <span>
-            <p className="text-sm  text-slate-500 mr-[2.75rem]">
-              Email
-            </p>
-          </span>
-        </div>
-        <div>
-          <span>
-            <p className="text-sm text-slate-500">
-             In Time / Out Time
-            </p>
-          </span>
-        </div>
-      </div>
-      {/* overall div  */}
-      {data.map((item) => (
-        <div key={item._id} className='flex items-center bg-white justify-between px-4 mx-5 py-2 border-x-[1px] border-b-[1px] '>
-          {/* customer name/email/... */}
-          <div className='flex space-x-4 '>
-            <input type="checkbox" className='w-4 h-4 mt-2' />
-            <div className='flex flex-col space-y-1 '>
-              <p className='font-semibold'>{item.name}</p>
-              <span><p className='text-sm text-slate-500'>ID:_{item._id}</p></span>
-              {/* <span><p className='text-sm text-slate-500'>{item.personalContact}</p></span>/ */}
-            </div>
-          </div>
-          {/* status/gender/... */}
-          <div className='flex flex-col space-y-1 w-[13rem]'>
-            <span><p className='text-sm text-slate-500'>{item.email}</p></span>
-            {/* <span><p className='text-sm  text-slate-500'>{item.place}</p></span> */}
-          </div>
-          {/* revenue/order/count... */}
-          <div className='flex space-x-4  justify-between'>
-            {/* <div className='flex flex-col space-y-1'>
-              <span><p className='text-sm text-slate-500'>In:- {formatDateTime(item.inDateTime)}</p></span>
-              <span><p className='text-sm text-slate-500'>Out:- {formatDateTime(item.outDateTime)}</p></span>
-            </div> */}
-            <button className='rounded-2xl bg-green-600 px-2 py-1 text-white text-[12px] font-medium h-6'>Edit</button>
-            <button className='rounded-2xl bg-red-600 px-2 py-1 text-white text-[12px] font-medium h-6'>Delete</button>
-          </div>
-        </div>
-      ))}
+    const deleteUser = async (id) => {
+        try {
+          const response = await axios.delete(`http://localhost:4000/api/v1/${id}`);
+          console.log(response)
+          toast.success("User deleted successfully")
+        } catch (e) {
+          toast.error("Something went wrong");
+        }
+      };
 
       
+  return (
+    <div>
+      <h1 className="text-2xl w-[90%] mx-auto py-8 font-semibold  text-gray-900">
+        Manage Student
+      </h1>
+      <table className="divide-y w-[90%] mx-auto divide-gray-200 overflow-x-auto">
+        <thead className="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Name
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Batch
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Status
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Role
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Email
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {data
+            .filter((user) => user.role === 'student')
+            .map((user) => (
+              <tr key={user._id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="ml-4">
+                      <div className="text-sm font-medium text-gray-900">
+                        {user.name}
+                      </div>
+                      <div className="text-sm text-gray-500">{user.email}</div>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.batch}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Active
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {user.role}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {user.email}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <button
+                    onClick={() => deleteUser(user._id)}
+                    className="ml-2 text-red-600 hover:text-red-900"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 };

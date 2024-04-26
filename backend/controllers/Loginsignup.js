@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // signup handler
 exports.signup = async (req,res)=>{
-    const {name,email,password} = req.body;
+    const {name,email,password,role,batch} = req.body;
     try{
         // check if user already exists or not
         const user = await UserSchema.findOne({email});
@@ -31,7 +31,8 @@ exports.signup = async (req,res)=>{
 
         // create entry for User
         const newUser = new UserSchema({
-            name,email,password:hashpassword
+            name,email,password:hashpassword, role: role?role:"student",
+            batch,
         })
     
         newUser.save();
@@ -82,3 +83,27 @@ exports.login = async (req,res)=>{
     
 
 }
+
+exports.deleteUser = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const user = await UserSchema.findByIdAndDelete(id);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "user not found",
+        });
+      }
+      const users = await UserSchema.find();
+      res.status(200).json({
+        success: true,
+        message: "user deleted successfully",
+          users,
+      });
+    } catch (e) {
+      res.status(500).json({
+        success: false,
+        message: "internal server error",
+      });
+    }
+  };
