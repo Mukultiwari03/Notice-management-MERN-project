@@ -15,7 +15,7 @@ const Student = () => {
         <div>
             <Navbar />
             <div
-                className='h-[24.325rem] w-full flex items-end bg-[#e8e8e8] justify-center'
+                className='h-[24.325rem] w-full flex items-end bg-[#f1f1f194] justify-center'
                 style={{
                     background: `url(${profile}) no-repeat center center/cover`,
                     filter: 'brightness(70%)', // Reduce brightness for dull effect
@@ -35,7 +35,7 @@ const Student = () => {
             </div>
 
             {/* nav all notices and all */}
-            <div className='pt-[6rem] text-center p-0 sm:pl-8 bg-[#e8e8e8]'>
+            <div className='pt-[6rem] text-center p-0 sm:pl-8 bg-[#f1f1f194] '>
                 <div className='bg-slate-700 w-[25rem] md:w-[36rem] h-[0.5px] mx-auto mb-3'></div>
                 <nav className="flex justify-center">
                     <ul className="flex items-center mr-8">

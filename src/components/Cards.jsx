@@ -4,6 +4,7 @@ import academics from '../assests/academic.jpg'
 import uniques from '../assests/uniques.jpg'
 import { Link } from 'react-router-dom'; 
 import UniquesTemp from '../components/notices/UniquesTemp';
+import cover1 from '../assests/cover1.jpg';
 const Cards = () => {
   const data =[
     {
@@ -24,22 +25,27 @@ const Cards = () => {
     },
     {
       id:"3",
-      title:"Academics",
+      title:"The Uniques",
       img:uniques,
       desc:"This is the description of the Uniques",
       edit:'/admin/uniques'
     },
-    {
-      id:"4",
-      title:"Academics",
-      img:academics,
-      desc:"This is the description of the academics",
-      edit:'/admin/academic'
-    },
+   
   ]
   return (
-<section className="text-gray-900 bg-white body-font">
-  <div className="container px-5 py-24 mx-auto">
+<section className="text-gray-900 bg-[#f1f1f194] body-font">
+  <div 
+  className='h-[24.325rem] bg-[#f1f1f194] w-[95%] mt-[2rem] rounded-lg shadow-lg mx-auto'
+  style={{
+                    background: `url(${cover1}) no-repeat center center/cover`,
+                     // Reduce brightness for dull effect
+                }}>
+                  <div className='h-[70%] ml-4 sm:ml-8 flex flex-col justify-center'>
+                  <h2 className='text-white font-bold text-4xl font-sans '>Welcome back, Admin! </h2>
+                  <p className='text-white font-sans text-wrap w-full sm:w-[60%] mt-5'> Streamline your notice management effortlessly with our intuitive platform. Draft, publish, and manage notices seamlessly to keep your organization informed and engaged.</p>
+                  </div>
+                </div>
+  <div className="container py-24 w-[95%] bg-[#f1f1f194] mx-auto">
     <div className="flex flex-col">
       <div className="h-1 bg-gray-200 rounded overflow-hidden">
         <div className="w-24 h-full bg-indigo-500"></div>

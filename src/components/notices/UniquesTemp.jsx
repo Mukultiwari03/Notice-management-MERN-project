@@ -60,13 +60,13 @@ const UniquesTemp = () => {
       <div className="flex justify-end my-10">
       <button
           onClick={handleEditToggle}
-          className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-6 rounded"
+          className="bg-gray-800  hover:bg-gray-700 text-white font-bold py-2 px-6 rounded"
         >
           {isEditable ? "Save" : "Edit"}
         </button>
       <button
           onClick={printDocument}
-          className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 ml-4 rounded"
+          className="bg-gray-800  hover:bg-gray-700 text-white font-bold py-2 px-4 ml-4 rounded"
         >
           Download PDF
         </button>

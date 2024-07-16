@@ -12,6 +12,7 @@ import UniquesTemp from "./components/notices/UniquesTemp";
 import History from "./pages/admin/History";
 import Student from "./pages/student/Student";
 import Users from "./components/Users"
+import AddUsers from "./pages/admin/Addusers";
 function App() {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
@@ -82,6 +83,10 @@ function App() {
         {
           path:"/admin/users",
           element:<Users/>
+        },
+        {
+          path:"/admin/addusers",
+          element:<AddUsers/>
         }
       ],
     },

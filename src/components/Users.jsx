@@ -18,9 +18,10 @@ const Users = () => {
   }, []);
 
   console.log(users); 
-
+// bg-[#3b82f6]/5
+// bg-[#e8e8e8]
   return (
-    <div className='bg-[#e8e8e8] h-[100vh]'>
+    <div className='bg-[#f1f1f194] h-full '>
       <Custcomp data={users}/>
     </div>
   )
